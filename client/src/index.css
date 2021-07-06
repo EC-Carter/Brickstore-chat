@@ -1,0 +1,45 @@
+@font-face{
+    font-family:"HighTower";
+    src:local('HighTower'),
+    url('./fonts/High\ Tower\ Text\ Regular/HighTowerTextRegular.ttf') format("truetype");
+    font-weight:regular
+}
+
+
+
+body{
+    font-family:"HighTower";
+    color:#442316;
+}
+
+body a {
+    color:#442316;
+    
+}
+
+.fullPageWrapper{
+    width:100vw;
+    height:100vh;
+}
+
+.homeLayout{
+    height:90vh;
+    width:75vw;
+}
+
+.logo{
+    width:80%;
+
+}
+
+.fw-1{
+font-size:1.75em;
+}
+
+/* .fs-2{
+    font-size:
+} */
+
+.bspBrown{
+    background-color: #442316;
+}
