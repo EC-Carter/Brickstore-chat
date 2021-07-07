@@ -3,6 +3,9 @@ const express = require('express');
 const PORT = process.env.PORT || 3005;
 const app = express();
 
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
+
 //for passport
 const cookieSession = require('cookie-session');
 const passport = require('passport');

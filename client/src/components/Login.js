@@ -1,10 +1,23 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+
+//     const [data, setData] = useState(null);
+
+// useEffect(() => {
+//     const getDatafromServer =  async () => {
+//     let results = await fetch('/usersData');
+//     let data = await results.json();
+//     //console.log(data)
+//     setData(data);
+//     }
+//     getDatafromServer();
+    
+// },[])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +31,7 @@ const Login = () => {
                 password:password
             })
         })
+
         setUserName('');
         setPassword('');
     }//eo handleSubmit
@@ -39,31 +53,26 @@ return (
             <Form.Label>Password</Form.Label>
             <Form.Control type='password' placeholder='enter password' onChange={(e)=>setPassword(e.target.value)} value={password} name="password"/>
         </Form.Group>
+
         <Button type="submit" className="bspBrown align-self-center my-3 btn-lg">Login</Button>
+
         <Form.Text className ="align-self-center my-3 ">Don't have an acount. Create one <Link to="/register">here</Link></Form.Text>
+
     </Form>
+    {/* {data && data.map(user => {
+    return <div>username: {user.username} password: {user.password}</div>
+    })}  */}
     </div>
+
+    
 
     
 
     </>
 )}
 
-// const [data, setData] = useState(null);
 
-// useEffect(() => {
-//     const getDatafromServer =  async () => {
-//     let results = await fetch('/usersData');
-//     let data = await results.json();
-//     //console.log(data)
-//     setData(data);
-//     }
-//     getDatafromServer();
-    
-// },[])
-/* {data && data.map(user => {
-    return <div>{user.userName} {user.password}</div>
-    })} */
+
 
 
 
