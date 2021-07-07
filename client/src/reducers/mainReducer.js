@@ -6,11 +6,18 @@ const mainReducer = (state,action) => {
     if(state == null){
         state = {
             conversations:[],
-            contacts:[]
+            contacts:[],
+            currentUser:{}
         }
     }
 
     switch(action.type){
+        case 'ADD_CURRENT_USER':
+            return{
+                ...state,
+                currentUser:action.currentUser
+            }
+
 
 
         default:

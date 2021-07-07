@@ -24,10 +24,40 @@ import reducer from './reducers/mainReducer'
 //components
 import App from './App';
 import Login from './components/Login';
-import Register from './components/Register'
+import Register from './components/Register';
+import ChatDashboard from './components/ChatDashboard'
 
-let store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+//utilizing session storage
+const saveToSessionStorage = (reduxGlobalState) => {
 
+  //serialization = converting js object to string
+  try{
+    const serializedState = JSON.stringify(reduxGlobalState);
+    sessionStorage.setItem('state',serializedState);
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
+const loadFromSessionStorage = () => {
+
+  const serializedState = sessionStorage.getItem('state');
+
+  if(serializedState == null){
+    return undefined;
+  } else {
+    return JSON.parse(serializedState);
+  }
+  
+}
+const persistedState = loadFromSessionStorage();
+
+let store = createStore(reducer,persistedState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+store.subscribe(() => {
+  saveToSessionStorage(store.getState());
+})
 
 ReactDOM.render(
   <React.StrictMode>
@@ -37,6 +67,7 @@ ReactDOM.render(
           <Route exact path='/' component={App} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/dashboard' component={ChatDashboard} />
         </Switch>
       </Router>
     </Provider>
