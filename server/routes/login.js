@@ -17,7 +17,7 @@ router.post('/login',(req,res)=>{
     //console.log(isUser)
     if(isUser != undefined){
         res.json(isUser)
-        console.log(isUser)
+        //console.log(isUser)
         
     } else {
         res.json({message:'user not found'})

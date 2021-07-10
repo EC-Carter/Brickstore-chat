@@ -74,7 +74,7 @@ export const setSelectedConversation = (selectedCoversation) => {
     }
 }
 
-export const addMessageToConversation = (text,recipients,sender) => {
+export const addMessageToConversation = (recipients,sender,text) => {
     const message ={
         text,
         recipients,
@@ -85,6 +85,23 @@ export const addMessageToConversation = (text,recipients,sender) => {
         message:message
         
     }
+}
+
+export const setSocket = () => {
+    //sets the socket connection
+    //maybe incorporate this into the add user action
+}
+
+export const sendMessage = (text,recipients,sender,socket) => async(dispatch,getState) =>{
+    //check to see if socket connection exists
+    //emmit message to socket
+    
+}
+
+export const recieveMessage = (message) => async(dispatch,getState) =>{
+    //recieves message from socket
+    //calls addMessageToConversation to add the message 
+
 }
 
 

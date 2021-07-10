@@ -6,7 +6,7 @@ import {addMessageToConversation,setErrorTrue} from '../actions/actions';
 
 import ErrorModal from './ErrorModal';
 
-const OpenConversation = () => {
+const OpenConversation = ({socket}) => {
 
     const dispatch = useDispatch();
     const conversations = useSelector(state => state.conversations);
@@ -20,24 +20,42 @@ const OpenConversation = () => {
             node.scrollIntoView({smooth:true})
         }
     },[])
+
     let selectedConversation = conversations.filter( convo => {
         return convo.isSelected
     })
     selectedConversation = selectedConversation[0];
-    //console.log(selectedConversation.messages)
 
+
+
+    //event handlers for message and use effect to recieve message from socket
+    const sendMessage = (recipients,text,user) => {
+        let names = recipients.map(recipient => recipient.username);
+        socket.emit('send-message',{recipients,text})
+        dispatch(addMessageToConversation(names,user,text))
+    }
+
+    useEffect(()=> {
+        if(socket == null) return
+
+        socket.on('receive-message',dispatch(addMessageToConversation))
+        return ()=> socket.off('receive-message')
+
+    },[socket, addMessageToConversation])
+    
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if(selectedConversation){
-        dispatch(addMessageToConversation(text,selectedConversation.recipients,user.username))
+        sendMessage(selectedConversation.recipients,text,user.username)
+    
         } else {
         dispatch(setErrorTrue('You must select a conversation'))
         }
         setText('')
     }
-
+    //for error modal
     const [modalOpen, setModalOpen] = useState(false);
-
     useEffect(() => {
         if(isError){
             setModalOpen(true)
@@ -45,13 +63,12 @@ const OpenConversation = () => {
         }
         
     },[])
-
     const closeModal = () => {
         
-        setModalOpen(false)
-        
+        setModalOpen(false)    
     }
 
+    
 
     return (
         <div className="d-flex flex-column flex-grow-1  openConversation">

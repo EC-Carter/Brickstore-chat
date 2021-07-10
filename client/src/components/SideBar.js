@@ -8,7 +8,7 @@ import NewContactModal from './NewContactModal';
 import NewConvoModal from './NewConvoModal';
 
 
-const SideBar = () => {
+const SideBar = ({socket}) => {
     //global state
     const username = useSelector(state => state.currentUser.username);
     const userId = useSelector(state => state.currentUser.id);
@@ -28,7 +28,7 @@ const SideBar = () => {
     }
     
 
-
+    
     
     
     return (
