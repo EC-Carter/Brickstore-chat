@@ -3,8 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 //redux
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 
 //react-router
 import {
@@ -14,9 +15,10 @@ import {
 
 //css files and misc.
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './main.css'
+import './main.css';
 import './index.css';
-import './fonts/High Tower Text Regular/HighTowerTextRegular.ttf'
+import './fonts/High Tower Text Regular/HighTowerTextRegular.ttf';
+//import {SocketProvider} from './contexts/SocketProvider'
 
 //reducers
 import reducer from './reducers/mainReducer'
@@ -52,8 +54,9 @@ const loadFromSessionStorage = () => {
   
 }
 const persistedState = loadFromSessionStorage();
+const composedEnhancer = compose(applyMiddleware(thunk),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
-let store = createStore(reducer,persistedState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+let store = createStore(reducer,persistedState,composedEnhancer);
 
 store.subscribe(() => {
   saveToSessionStorage(store.getState());
@@ -61,16 +64,20 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path='/' component={App} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-          <Route path='/dashboard' component={ChatDashboard} />
-        </Switch>
-      </Router>
-    </Provider>
+    
+      <Provider store={store}>
+        {/* <SocketProvider> */}
+          <Router>
+            <Switch>
+              <Route exact path='/' component={App} />
+              <Route path='/login' component={Login} />
+              <Route path='/register' component={Register} />
+              <Route path='/dashboard' component={ChatDashboard} />
+            </Switch>
+          </Router>
+        {/* </SocketProvider> */}
+      </Provider>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

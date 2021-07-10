@@ -10,3 +10,81 @@ export const addCurrentUser = (user) => {
     }
     
 }
+
+export const getNewContact = username => async(dispatch,getState) =>{
+    const response = await fetch('/getUser',{
+            method:'POST',
+            headers:{
+                'Content-type': 'application/json; charset=UTF-8'
+                
+            },
+            body:JSON.stringify({
+                username:username    
+            })
+    })
+    let newContact = await response.json()
+    //console.log(newContact)
+    if('message' in newContact ){
+        //console.log(newContact.message)
+        dispatch(setErrorTrue(newContact.message))
+    } else{
+        //console.log(newContact)
+        dispatch(addNewContact(newContact));
+
+    }
+    
+}   
+
+export const addNewContact = (contact) => {
+    return{
+        type:'ADD_NEW_CONTACT',
+        newContact:contact
+    }
+    
+}
+
+export const setErrorTrue = (message)=>{
+    return{
+        type:'SET_ERROR_TRUE',
+        message:message
+
+    }
+}
+
+export const setErrorFalse = () =>{
+    return{
+        type:'SET_ERROR_FALSE'
+    }
+}
+
+export const createConversation = (recipients,isSelected) => {
+    return{
+        type:'CREATE_CONVERSATION',
+        recipients:recipients,
+        isSelected:isSelected
+
+    }
+    
+}
+
+export const setSelectedConversation = (selectedCoversation) => {
+    return{
+        type:'SET_SELECTED_CONVERSATION',
+        selected:selectedCoversation
+    }
+}
+
+export const addMessageToConversation = (text,recipients,sender) => {
+    const message ={
+        text,
+        recipients,
+        sender
+    }
+    return{
+        type:'ADD_MESSAGE_TO_CONVO',
+        message:message
+        
+    }
+}
+
+

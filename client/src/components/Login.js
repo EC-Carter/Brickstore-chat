@@ -19,26 +19,42 @@ const Login = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        try{
+            e.preventDefault();
         const isUser = await fetch('/login',{
             method:'POST',
             headers:{
                 'Content-type': 'application/json; charset=UTF-8'
+                
             },
             body:JSON.stringify({
                 username:userName,
                 password:password
             })
         })//eo fetch
-        const currentUser = await isUser.json();
+        
         //set current user in global state
-        if(currentUser){
+        //console.log(currentUser)
+        const currentUser = await isUser.json();
+        if('message' in currentUser ){
+            setShow(true)
+            console.log(currentUser)
+            setUserName('');
+            setPassword('');
+
+        } else {
             dispatch(addCurrentUser(currentUser));
             setLoggedIn(true)
-        } 
+            
+        }
+
+
+        } catch(e){
+            console.log(e)
+        }
         
-        setUserName('');
-        setPassword('');
+        
+        
     }//eo handleSubmit
     
 
@@ -73,10 +89,10 @@ return (
 
 <Modal show={show} onHide={handleCloseModal}>
         <Modal.Header >
-            <Modal.Title>Thanks for Joining</Modal.Title>
+            <Modal.Title>User Not found</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            Your account has been created. You will need your acount verified by a manager before being able to log in. 
+            Please try again or create an account if you have not already done so. 
         </Modal.Body>
         <Modal.Footer>
             <Button  className="bspBrown" onClick={handleCloseModal}>Close</Button>

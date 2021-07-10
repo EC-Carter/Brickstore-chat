@@ -39,11 +39,20 @@ router.post('/usersData',(req,res) => {
             }
         })
         res.json(newUser)
-
-
     }
+})//eo router.post /usersData
 
-
+router.post('/getUser', (req,res) => {
+    let {username} = req.body;
+    //find user object that matches username
+    let contact = users.find(user => user.username == username)
+    //console.log(contact)
+    //send back user object or an error if user is not found 
+    if(contact != undefined){
+        res.json(contact)
+    } else {
+        res.json({message:'user not found'})
+    }
 
 })
 

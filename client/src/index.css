@@ -17,6 +17,7 @@ body a {
     
 }
 
+
 .fullPageWrapper{
     width:100vw;
     height:100vh;
@@ -42,4 +43,18 @@ font-size:1.75em;
 
 .bspBrown{
     background-color: #442316;
+}
+
+.sideBar{
+    width:40%;
+    background-color: rgba(255, 255, 255, 0.543);
+}
+.sidebar-wrapper{
+    height:100vh;
+}
+
+.openConversation{
+    background-color: rgba(255, 255, 255, 0.543);
+    border-left: 1px solid rgb(227, 225, 225);
+    
 }

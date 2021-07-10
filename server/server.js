@@ -2,6 +2,7 @@
 const express = require('express');
 const PORT = process.env.PORT || 3005;
 const app = express();
+const socket = require('socket.io');
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -35,6 +36,30 @@ app.use(require("./routes/users"));
 app.use(require("./routes/login"));
 
 //server start
-app.listen(PORT, () => {
+ let server = app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`);
 })
+
+let io = socket(server,{
+    cors:{
+        origin:'http://localhost:3000',
+        methods:["GET","POST"]
+    }
+});
+
+io.on('connection',socket =>{
+    const username = socket.handshake.query.username
+    socket.join(username)
+
+    socket.on('send-message',({recipients,text}) =>{
+        recipients.forEach(recipient => {
+            const newRecipients = recipients.filter(r => r !== recipient)
+            newRecipients.push(username)
+            socket.boradcast.to(recipient).emit('receive-message',{
+                recipients:newRecipients,sender:username,text
+            })
+        })
+    })
+})
+
+

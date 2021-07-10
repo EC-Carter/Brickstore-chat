@@ -15,12 +15,27 @@ router.post('/login',(req,res)=>{
 
     
     //console.log(isUser)
-    res.json(isUser)
+    if(isUser != undefined){
+        res.json(isUser)
+        console.log(isUser)
+        
+    } else {
+        res.json({message:'user not found'})
+    }
+    
     
 
 
 
 })
+
+// f(user){
+//     //if it is a real user
+//     res.json({})
+//   } else {
+//     res.status(404); // status for unauthorized
+//     throw new Error('Invalid email or password');
+//   }
 
 
 
