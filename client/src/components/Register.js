@@ -72,7 +72,7 @@ return (
             <Form.Label>Password</Form.Label>
             <Form.Control type='password' placeholder='enter password' name='password' onChange={(e)=>setPassword(e.target.value)} value={password}/>
         </Form.Group>
-        <Button type='submit' className="bspBrown align-self-center my-3">Create Account</Button>
+        <Button type='submit' variant='dark' className="bspBrown align-self-center my-3">Create Account</Button>
     </Form>
 
     {userRegistered && <Redirect to="/login"/> }

@@ -78,7 +78,7 @@ return (
             <Form.Control type='password' placeholder='enter password' onChange={(e)=>setPassword(e.target.value)} value={password} name="password"/>
         </Form.Group>
 
-        <Button type="submit" className="bspBrown align-self-center my-3 btn-lg">Login</Button>
+        <Button variant="dark" type="submit" className="bspBrown align-self-center my-3 btn-lg">Login</Button>
 
         <Form.Text className ="align-self-center my-3 ">Don't have an acount. Create one <Link to="/register">here</Link></Form.Text>
 
@@ -95,7 +95,7 @@ return (
             Please try again or create an account if you have not already done so. 
         </Modal.Body>
         <Modal.Footer>
-            <Button  className="bspBrown" onClick={handleCloseModal}>Close</Button>
+            <Button  variant="dark" className="bspBrown" onClick={handleCloseModal}>Close</Button>
         </Modal.Footer>
     </Modal>
     </div>

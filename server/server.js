@@ -52,14 +52,17 @@ io.on('connection',socket =>{
     socket.join(username)
 
     socket.on('send-message',({recipients,text}) =>{
-        console.log(text,recipients)
+        
+        recipients = recipients.map (r => r.username);
+        
         recipients.forEach(recipient => {
-            const newRecipients = recipients.filter(r => r.username !== recipient.username)
-            newRecipients.push(username)
-            //console.log(newRecipients)
-            // socket.boradcast.to(recipient).emit('receive-message',{
-            // recipients:newRecipients,sender:username,text
-            // })
+            //const newRecipients = recipients.filter(r => r !== recipient)
+            //newRecipients.push(username)
+            console.log(text,recipients)
+            socket.broadcast.to(recipient).emit('receive-message',{
+            recipients:recipients,sender:username,text
+
+            })
         })
     })
 })

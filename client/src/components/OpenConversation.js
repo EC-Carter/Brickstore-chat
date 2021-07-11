@@ -26,7 +26,7 @@ const OpenConversation = ({socket}) => {
     })
     selectedConversation = selectedConversation[0];
 
-
+    
 
     //event handlers for message and use effect to recieve message from socket
     const sendMessage = (recipients,text,user) => {
@@ -36,12 +36,20 @@ const OpenConversation = ({socket}) => {
     }
 
     useEffect(()=> {
+        
         if(socket == null) return
+        socket.on('receive-message',(data) =>{
+            let recipients = data.recipients;
+            let sender = data.sender;
+            let text = data.text;
+            console.log(`recip ${recipients} sender ${sender} text ${text}`)
+            dispatch(addMessageToConversation(recipients,sender,text))
+        })
 
-        socket.on('receive-message',dispatch(addMessageToConversation))
+        
         return ()=> socket.off('receive-message')
 
-    },[socket, addMessageToConversation])
+    },[socket,dispatch])
     
     
     const handleSubmit = (e) => {
@@ -67,7 +75,7 @@ const OpenConversation = ({socket}) => {
         
         setModalOpen(false)    
     }
-
+    
     
 
     return (
@@ -81,10 +89,9 @@ const OpenConversation = ({socket}) => {
                             <div 
                             ref={lastMessage ? setRef :null}
                             key={index} 
-                            className={`my-1 d-flex flex-column ${user.username === user.username?'align-self-end align-items-end':'align-items-start' }`}
-
+                            className={`my-1 d-flex flex-column ${user.username === message.sender?'align-self-end align-items-end':'align-items-start' }`}
                             >
-                                <div className="rounded px-2 py-1 bg-white">{message.text}</div>
+                            <div className={`rounded px-2 py-1 ${user.username === message.sender?'bg-white':'bspBrown text-white'} `}>{message.text}</div>
                                 <div>{message.sender}</div>
                             </div>
                         )
@@ -106,7 +113,7 @@ const OpenConversation = ({socket}) => {
                         style={{height:'75px',resize:'none'}}
                         />
                         <InputGroup.Append>
-                        <Button type="submit" className="bspBrown rounded-0" style={{height:'75px'}}>Send</Button>
+                        <Button type="submit" variant="dark" className="bspBrown rounded-0" style={{height:'75px'}}>Send</Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </Form.Group>

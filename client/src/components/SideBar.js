@@ -36,8 +36,8 @@ const SideBar = ({socket}) => {
             
                 <Tab.Container className="">
                     <Nav variant="tabs"className="justify-content-center">
-                        <Nav.Item>
-                            <Nav.Link eventKey="conversations" onClick={()=>tabClickHandler(true)}>Conversations</Nav.Link>
+                        <Nav.Item >
+                            <Nav.Link eventKey="conversations" onClick={()=>tabClickHandler(true)} >Conversations</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link eventKey="contacts" onClick={()=>tabClickHandler(false)}>Contacts</Nav.Link>
@@ -55,7 +55,9 @@ const SideBar = ({socket}) => {
                     <div className=" border-top border-right text-center p-2">
                     Your Username: {username}
                     </div>
-                    <Button onClick={()=>setModalOpen(true)} className="bspBrown rounded-0">
+                    <Button onClick={()=>setModalOpen(true)} className="bspBrown rounded-0"
+                    variant="dark"
+                    >
                     New {conversationsOpen? 'Conversation': 'Contact'}
                 </Button>
                     

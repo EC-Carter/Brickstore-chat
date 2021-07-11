@@ -16,6 +16,9 @@ body a {
     color:#442316;
     
 }
+Nav a {
+    color:#442316;
+}
 
 
 .fullPageWrapper{
@@ -51,10 +54,17 @@ font-size:1.75em;
 }
 .sidebar-wrapper{
     height:100vh;
+    max-width:960px;
+    margin-left:auto;
+    margin-right:auto;
+
 }
 
 .openConversation{
     background-color: rgba(255, 255, 255, 0.543);
     border-left: 1px solid rgb(227, 225, 225);
     
+}
+.tab-color{
+    color:#442316;
 }

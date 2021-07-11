@@ -51,7 +51,7 @@ const NewConvoModal = ({closeModal}) => {
                     </Form.Group>
                 ))}
 
-            <Button type="submit" className="bspBrown mt-1">Create</Button>
+            <Button type="submit" variant="dark" className="bspBrown mt-1">Create</Button>
             </Form>
         </Modal.Body>
         

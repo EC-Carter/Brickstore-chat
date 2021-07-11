@@ -23,7 +23,7 @@ const ErrorModal = ({message,closeModal}) => {
         <>
         <Modal.Header>{message}</Modal.Header>
         <Modal.Body>{message}: Please try again</Modal.Body>
-        <Button onClick={handleClick} className="bspBrown m-2">Close</Button>
+        <Button onClick={handleClick}  variant="dark" className="bspBrown m-2">Close</Button>
         </>
     
     

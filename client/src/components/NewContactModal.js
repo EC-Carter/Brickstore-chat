@@ -27,7 +27,7 @@ const NewContactModal = ({closeModal}) => {
                     <Form.Label>New Contact Username</Form.Label>
                     <Form.Control type="text" required value={contactToAdd} onChange={(e)=>setContactToAdd(e.target.value)}/>
                 </Form.Group>
-                <Button type='submit' className="bspBrown my-2">Add Contact</Button>
+                <Button type='submit' variant='dark' className="bspBrown my-2">Add Contact</Button>
             </Form>
         </Modal.Body>
         

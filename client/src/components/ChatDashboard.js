@@ -42,11 +42,12 @@ const ChatDashboard = () => {
     useEffect (() => {
         const newSocket = io('http://localhost:3005',
         {
-        cors:{
-        origin:'http://localhost:3005',
-        methods:['GET','POST']
-        }, 
-        query: {username}
+        query: {username}//,
+        // cors:{
+        // origin:'http://localhost:3005',
+        // methods:['GET','POST']
+        // }
+        
         })
 
         setSocket(newSocket)
